@@ -1,0 +1,71 @@
+@import 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css'
+
+:root {
+  font: 16px / 1 sans-serif;
+  --header-background: #131959;
+  --header-text-color: #e4e1c1;
+  --header-font-size: 3rem;
+  --square-font-size: calc(8 * var(--header-font-size));
+  --square-text-color: #b6ac91;
+  --square-background-color: #98abdd;
+  --square-border: 3px solid var(--square-text-color);
+  ////////////////////////////////////board settings below
+  --easy-cell-size: 3rem;
+  --easy-board-size: 8;
+  --intermediate-cell-size: 2rem;
+  --intermediate-board-size: 16;
+  --expert-cell-size: 1.5rem;
+  --expert-board-size: 24;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  height: 100%;
+}
+
+main {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+}
+
+ul.difficulty-0 {
+  grid-template-columns: repeat(var(--easy-board-size), 1fr);
+  grid-template-rows: repeat(var(--easy-board-size), 1fr);
+  width: calc(var(--easy-board-size) * var(--easy-cell-size));
+  height: calc(var(--easy-board-size) * var(--easy-cell-size));
+}
+
+ul.difficulty-1 {
+  grid-template-columns: repeat(var(--intermediate-board-size), 1fr);
+  grid-template-rows: repeat(var(--intermediate-board-size), 1fr);
+  width: calc(var(--intermediate-board-size) * var(--intermediate-cell-size));
+}
+
+ul.difficulty-2 {
+  grid-template-columns: repeat(var(--expert-board-size), 1fr);
+  grid-template-rows: repeat(var(--expert-board-size), 1fr);
+  width: calc(var(--expert-board-size) * var(--expert-cell-size));
+}
+
+li {
+  margin: 0;
+  padding: 0.5;
+  background-color: grey;
+  border: 1px solid black;
+  display: flex;
+  align-items: center;
+}

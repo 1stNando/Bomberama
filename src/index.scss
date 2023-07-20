@@ -1,6 +1,5 @@
-@import 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css'
-
-:root {
+@import 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css':
+  root {
   font: 16px / 1 sans-serif;
   --header-background: #131959;
   --header-text-color: #e4e1c1;
@@ -68,4 +67,40 @@ li {
   border: 1px solid black;
   display: flex;
   align-items: center;
+  justify-content: center;
+  color: white;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+ul.difficulty-0 li {
+  width: var(--easy-cell-size);
+  height: var(--easy-cell-size);
+}
+
+ul.difficulty-1 li {
+  width: var(--intermediate-cell-size);
+  height: var(--intermediate-cell-size);
+}
+
+ul.difficulty-2 li {
+  width: var(--expert-cell-size);
+  height: var(--expert-cell-size);
+}
+
+li.cell-number {
+  color: white;
+}
+
+li.cell-bomb {
+  background-color: #c333;
+  color: #f00;
+}
+
+li.cell-flag {
+  background-color: #999;
+  color: green;
+}
+
+li.cell-flag {
+  background-color: yellow;
 }

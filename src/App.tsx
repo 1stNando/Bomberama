@@ -1,6 +1,23 @@
 import React from 'react'
 
 export function App() {
+  // Describes what the API will return. Shape matches exactly the data.
+  const [game, setGame] = useState({
+    id: 1,
+    board: [
+      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+    ],
+    state: 'new',
+    mines: 10,
+  })
+
   return (
     <main>
       <h1>Bomberama</h1>

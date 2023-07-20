@@ -35,6 +35,12 @@ export function App() {
     }
 
     const response = await fetch(url, fetchOptions)
+
+    if (response.ok) {
+      const newGameStateJson = await response.json()
+
+      setGame(newGameStateJson)
+    }
   }
 
   return (

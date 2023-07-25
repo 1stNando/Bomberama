@@ -42,39 +42,18 @@ export function App() {
       setGame(newGameStateJson)
     }
   }
-
-  async function handleClickCell(row: number, col: number) {
-    //console.log(`Clicked cell ${row} - ${col}`)
-
+  // One Function to do both handleCheck and handleFlag
+  async function handleCheckOrFlagCell(
+    row: number,
+    col: number,
+    action: 'check' | 'flag'
+  ) {
     const checkOptions = {
       id: game.id,
       row,
       col,
     }
-    const url = `https://minesweeper-api.herokuapp.com/games/${game.id}/check`
-    const fetchOptions = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(checkOptions),
-    }
-
-    const response = await fetch(url, fetchOptions)
-
-    if (response.ok) {
-      const newGameStateJson = await response.json()
-
-      setGame(newGameStateJson)
-    }
-  }
-
-  async function handleRightClickCell(row: number, col: number) {
-    const checkOptions = {
-      id: game.id,
-      row,
-      col,
-    }
-
-    const url = `https://minesweeper-api.herokuapp.com/games/${game.id}/flag`
+    const url = `https://minesweeper-api.herokuapp.com/games/${game.id}/${action}`
     const fetchOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -107,15 +86,17 @@ export function App() {
           return gameRow.map(function (square, col) {
             return (
               <button
-                onClick={function () {
-                  handleClickCell(row, col)
+                onClick={function (event) {
+                  event.preventDefault()
+
+                  handleCheckOrFlagCell(row, col, 'check')
                 }}
                 key={col}
                 // this prevents the default option menu to pop up when you right click on the page.
                 onContextMenu={function (event) {
                   event.preventDefault()
 
-                  handleRightClickCell(row, col)
+                  handleCheckOrFlagCell(row, col, 'flag')
                 }}
               >
                 {square}

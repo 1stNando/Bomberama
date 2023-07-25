@@ -107,8 +107,19 @@ button.cell-free {
   background-color: yellow;
 }
 
-button.cell-number {
-  color: rgb(242, 255, 0);
+.difficulty-0 button.cell-number {
+  font-weight: bold;
+  font-size: 1.7rem;
+}
+
+.difficulty-1 button.cell-number {
+  font-weight: bold;
+  font-size: 1.3rem;
+}
+
+.difficulty-2 button.cell-number {
+  font-weight: bold;
+  font-size: 1rem;
 }
 
 button.cell-1 {

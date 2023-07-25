@@ -18,11 +18,12 @@ export function App() {
     mines: undefined,
   })
 
+  // Tracks difficulty selected
   const [difficulty, setDifficulty] = useState<0 | 1 | 2>(0)
 
-  async function newGame(difficulty: number) {
+  async function newGame(newGameDifficulty: 0 | 1 | 2) {
     const gameOptions = {
-      difficulty,
+      difficulty: newGameDifficulty,
     }
 
     const url = 'https://minesweeper-api.herokuapp.com/games'
@@ -41,6 +42,8 @@ export function App() {
     if (response.ok) {
       const newGameStateJson = await response.json()
 
+      // Set game difficulty from tracking its state
+      setDifficulty(newGameDifficulty)
       setGame(newGameStateJson)
     }
   }
@@ -122,7 +125,7 @@ export function App() {
       <h3>Mines: {game.mines}</h3>
       <h3>Game #: {game.id}</h3>
 
-      <section className={}>
+      <section className={`difficulty-${difficulty}`}>
         {game.board.map(function (gameRow, row) {
           return gameRow.map(function (square, col) {
             return (

@@ -115,7 +115,7 @@ export function App() {
 
   return (
     <main>
-      <h1>Nando's Bomberama</h1>
+      <h1>Nando Bomberama</h1>
       <h2>
         Click on desired difficulty to start:
         <button onClick={() => newGame(0)}>Easy Game</button>

@@ -1,3 +1,5 @@
+Deployed at: https://bomberama.netlify.app
+
 In this assignment, you will communicate with a back-end API server to create the user-interface for a Minesweeper clone. It might help to familiarize yourself with the game if you have never played it.
 
 Objectives

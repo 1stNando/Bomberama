@@ -74,21 +74,17 @@ export function App() {
   // Write a function to dynamically change the DISPLAY of a cell
   function transformCellValue(value: string) {
     if (value === 'F') {
-      // return an icon for a flag
       return <i className="fa fa-flag" />
     }
 
     if (value === '_') {
-      // return an empty square
       return ' '
     }
 
     if (value === '*') {
-      // return an icon for a bomb
       return <i className="fa fa-bomb" />
     }
 
-    // otherwise, return what we have..
     return value
   }
 

@@ -53,7 +53,9 @@ export function App() {
       row,
       col,
     }
+
     const url = `https://minesweeper-api.herokuapp.com/games/${game.id}/${action}`
+
     const fetchOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -67,6 +69,47 @@ export function App() {
 
       setGame(newGameStateJson)
     }
+  }
+
+  // Write a function to dynamically change the DISPLAY of a cell
+  function transformCellValue(value: string) {
+    if (value === 'F') {
+      // return an icon for a flag
+      return <i className="fa fa-flag" />
+    }
+
+    if (value === '_') {
+      // return an empty square
+      return ' '
+    }
+
+    if (value === '*') {
+      // return an icon for a bomb
+      return <i className="fa fa-bomb" />
+    }
+
+    // otherwise, return what we have..
+    return value
+  }
+
+  // Function to change the className of our button
+  function transformCellClassName(value: string | number) {
+    // return appropriate className
+    if (value === 'F') {
+      return 'cell-flag'
+    }
+    if (value === '*') {
+      return 'cell-bomb'
+    }
+    if (value === '_') {
+      return 'cell-free'
+    }
+
+    if ([1, 2, 3, 4, 5, 6, 7, 8].includes(Number(value))) {
+      return 'cell-number'
+    }
+
+    return undefined
   }
 
   return (
@@ -86,20 +129,21 @@ export function App() {
           return gameRow.map(function (square, col) {
             return (
               <button
+                className={transformCellClassName(square)}
                 onClick={function (event) {
                   event.preventDefault()
 
                   handleCheckOrFlagCell(row, col, 'check')
                 }}
-                key={col}
                 // this prevents the default option menu to pop up when you right click on the page.
                 onContextMenu={function (event) {
                   event.preventDefault()
 
                   handleCheckOrFlagCell(row, col, 'flag')
                 }}
+                key={col}
               >
-                {square}
+                {transformCellValue(square)}
               </button>
             )
           })

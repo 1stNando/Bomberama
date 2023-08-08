@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
+type GameDifficulty = 0 | 1 | 2
+
 export function App() {
   // Describes what the API will return. Shape matches exactly the data.
   const [game, setGame] = useState({
@@ -19,7 +21,7 @@ export function App() {
   })
 
   // Tracks difficulty selected
-  const [difficulty, setDifficulty] = useState<0 | 1 | 2>(0)
+  const [difficulty, setDifficulty] = useState<GameDifficulty>(0)
 
   // Part 3.1: Coming back to add useEffect
   useEffect(function () {
@@ -27,8 +29,11 @@ export function App() {
       const existingGameId = localStorage.getItem('game-id')
       console.log(existingGameId)
 
+      // Part 3.3: Save difficulty level and ID
+      const existingDifficulty = localStorage.getItem('game-difficulty')
+
       // fetch the saved game by id.
-      if (existingGameId) {
+      if (existingGameId && existingDifficulty) {
         const response = await fetch(
           `http://minesweeper-api.herokuapp.com/games/${existingGameId}`
         )
@@ -37,6 +42,7 @@ export function App() {
           const gameJson = await response.json()
 
           setGame(gameJson)
+          setDifficulty(Number(existingDifficulty) as GameDifficulty)
         }
       }
     }
@@ -59,7 +65,7 @@ export function App() {
     const response = await fetch(url, fetchOptions)
 
     //check console
-    console.log('Make a new easy game')
+    console.log(response)
 
     if (response.ok) {
       const newGameStateJson = await response.json()
@@ -69,6 +75,7 @@ export function App() {
       setGame(newGameStateJson)
       // Part 3, Coming back to add ability to save data on localStorage!
       localStorage.setItem('game-id', newGameStateJson.id)
+      localStorage.setItem('game-difficulty', String(newGameDifficulty))
     }
   }
   // One Function to do both handleCheck and handleFlag
@@ -93,6 +100,8 @@ export function App() {
     }
 
     const response = await fetch(url, fetchOptions)
+
+    console.log(response)
 
     if (response.ok) {
       const newGameStateJson = await response.json()

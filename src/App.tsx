@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 export function App() {
   // Describes what the API will return. Shape matches exactly the data.
@@ -20,6 +20,28 @@ export function App() {
 
   // Tracks difficulty selected
   const [difficulty, setDifficulty] = useState<0 | 1 | 2>(0)
+
+  // Part 3.1: Coming back to add useEffect
+  useEffect(function () {
+    async function loadExistingGame() {
+      const existingGameId = localStorage.getItem('game-id')
+      console.log(existingGameId)
+
+      // fetch the saved game by id.
+      if (existingGameId) {
+        const response = await fetch(
+          `http://minesweeper-api.herokuapp.com/games/${existingGameId}`
+        )
+
+        if (response.ok) {
+          const gameJson = await response.json()
+
+          setGame(gameJson)
+        }
+      }
+    }
+    loadExistingGame()
+  }, [])
 
   async function newGame(newGameDifficulty: 0 | 1 | 2) {
     const gameOptions = {
@@ -45,6 +67,8 @@ export function App() {
       // Set game difficulty from tracking its state
       setDifficulty(newGameDifficulty)
       setGame(newGameStateJson)
+      // Part 3, Coming back to add ability to save data on localStorage!
+      localStorage.setItem('game-id', newGameStateJson.id)
     }
   }
   // One Function to do both handleCheck and handleFlag
@@ -53,6 +77,7 @@ export function App() {
     col: number,
     action: 'check' | 'flag'
   ) {
+    // This is a request payload.
     const checkOptions = {
       id: game.id,
       row,
@@ -76,7 +101,7 @@ export function App() {
     }
   }
 
-  // Write a function to dynamically change the DISPLAY of a cell
+  // Write a function to dynamically change the DISPLAY of a cell based on its content.
   function transformCellValue(value: string) {
     if (value === 'F') {
       return <i className="fa fa-flag" />
@@ -93,7 +118,7 @@ export function App() {
     return value
   }
 
-  // Function to change the className of our button
+  // This function is used to dynamically change the CSS class name of a button (cell) based on its content.
   function transformCellClassName(value: string | number) {
     // return appropriate className
     if (value === 'F') {
